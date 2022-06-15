@@ -14,10 +14,10 @@ module.exports = function(app) {
     app.get("/api/user/", [authJwt.verifyToken], controller.findByName);
     app.get("/api/user/teachers", [authJwt.verifyToken], controller.findTeachers);
     app.get("/api/user/students", [authJwt.verifyToken], controller.findStudents);
-    app.patch('/api/users/disciplinesS/:id', [authJwt.verifyToken,authJwt.isAdmin], controller.addStudentDiscipline)
-    app.patch('/api/users/disciplinesD/:id', [authJwt.verifyToken,authJwt.isAdmin], controller.deleteStudentDiscipline)
-    app.patch('/api/users/disciplinesTAdd/:id', [authJwt.verifyToken,authJwt.isAdmin], controller.addTeacherDiscipline)
-    app.patch('/api/users/disciplinesTDel/:id', [authJwt.verifyToken,authJwt.isAdmin], controller.deleteTeacherDiscipline)
+    app.patch('/api/user/disciplinesS/:id', [authJwt.verifyToken,authJwt.isAdmin], controller.addStudentDiscipline)
+    app.patch('/api/user/disciplinesD/:id', [authJwt.verifyToken,authJwt.isAdmin], controller.deleteStudentDiscipline)
+    app.patch('/api/user/disciplinesTAdd/:id', [authJwt.verifyToken,authJwt.isAdmin], controller.addTeacherDiscipline)
+    app.patch('/api/user/disciplinesTDel/:id', [authJwt.verifyToken,authJwt.isAdmin], controller.deleteTeacherDiscipline)
     app.post("/api/user/", [authJwt.verifyToken,authJwt.isAdmin], controller.create);
     app.get("/api/user/:id", [authJwt.verifyToken], controller.findById);
     app.patch("/api/user/:id", [authJwt.verifyToken,authJwt.isAdmin], controller.update);
