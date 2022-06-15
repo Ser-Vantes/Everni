@@ -173,17 +173,17 @@ module.exports.addStudent = async function (req, res) {
     }
 }
 
-module.exports.addStudents = async function (req, res) {
-    const student = req.body.array;
-    try {
-        const discipline = await Discipline.findOne({_id: req.params.id})
-        discipline.students.addToSet(student);
-        await discipline.save();
-        res.status(200).json(discipline)
-    } catch (e) {
-        errorHandler(res, e)
-    }
-}
+// module.exports.addStudents = async function (req, res) {
+//     const student = req.body.array;
+//     try {
+//         const discipline = await Discipline.findOne({_id: req.params.id})
+//         discipline.students.addToSet(student);
+//         await discipline.save();
+//         res.status(200).json(discipline)
+//     } catch (e) {
+//         errorHandler(res, e)
+//     }
+// }
 
 
 exports.deleteAll = (req, res) => {
