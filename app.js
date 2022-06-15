@@ -80,6 +80,7 @@ require('./routes/chapter.routes')(app);
 require('./routes/lecture.routes')(app);
 require('./routes/task.routes')(app);
 require('./routes/taskAnswers.routes')(app);
+require('./routes/mark.routes')(app);
 
 
 app.listen(port, () => console.log(`Server has been started on ${port}`))

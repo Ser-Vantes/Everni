@@ -11,7 +11,7 @@ module.exports = function (app) {
 
     app.post("/api/taskAnswers/", [authJwt.verifyToken, authJwt.isAdmin], controller.create);
     app.get("/api/taskAnswers/:id", [authJwt.verifyToken], controller.findById);
-    app.get("/api/taskAnswers/chapter/:chapterId", [authJwt.verifyToken], controller.getByTaskId);
+    app.get("/api/taskAnswers/task/:taskId", [authJwt.verifyToken], controller.getByTaskId);
     app.get("/api/taskAnswers/discipline/:disciplineId", [authJwt.verifyToken], controller.getByDisciplineId);
     app.patch("/api/taskAnswers/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.update);
     app.delete("/api/taskAnswers/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.remove);
