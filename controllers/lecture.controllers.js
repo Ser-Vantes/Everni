@@ -17,7 +17,7 @@ module.exports.create = async function (req, res) {
                 title: req.body.title,
                 lectureText: req.body.lectureText,
                 video: req.body.video,
-                links: req.body.links,
+                usefulLinks: req.body.usefulLinks,
                 discipline: req.body.discipline,
                 chapter: req.body.chapter,
             }).save()

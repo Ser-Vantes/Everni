@@ -10,18 +10,30 @@ const lectureSchema = new Schema({
         type: String,
         required: true
     },
-    video: [
-        String
-    ],
-    links:[
-        String
-    ],
-    files:[
+    video:
         {
             type: String,
-            default: ''
+        }
+    ,
+    usefulLinks: [
+        {
+            title: {
+                type: String
+            },
+            url: {
+                type: Number
+            },
+            _id: {
+                type: Number
+            }
         }
     ],
+    // files: [
+    //     {
+    //         type: String,
+    //         default: ''
+    //     }
+    // ],
     discipline: {
         ref: 'disciplines',
         type: Schema.Types.ObjectId
