@@ -102,6 +102,19 @@ module.exports.findStudentDisciplines = async (req, res) => {
     }
 };
 
+module.exports.findTeacherDisciplines = async (req, res) => {
+    try {
+        const id = req.params.id;
+        await User.findById(id,'teachersDisciplines').
+        populate('teachersDisciplines').
+            exec(function (err, users) {
+                res.status(200).json(users);
+            });
+    } catch (e) {
+        errorHandler(res, e)
+    }
+};
+
 
 
 module.exports.findTeachers = async (req, res) => {
@@ -209,7 +222,7 @@ module.exports.addStudentDiscipline = async function (req, res) {
 module.exports.deleteStudentDiscipline = async function (req, res) {
     const id = req.body.id;
     try {
-        await User.findOneAndUpdate(id, {
+        await User.findOneAndUpdate({_id: id}, {
             "$pull": {"studentDisciplines": req.params.id}
         }, {new: true, safe: true, upsert: true}).then((result) => {
             return res.status(201).json({
@@ -226,9 +239,29 @@ module.exports.deleteStudentDiscipline = async function (req, res) {
 }
 
 module.exports.addTeacherDiscipline = async function (req, res) {
+    const id = req.body.id;
     try {
-        await User.findOneAndUpdate(req.body.id, {
-            "$push": {"teachersDisciplines": req.params.id}
+        await User.findOneAndUpdate({_id: id}, {
+            "$addToSet": {"teachersDisciplines": req.params.id}
+        }, {new: true, safe: true, upsert: true}).then((result) => {
+            return res.status(201).json({
+                data: result
+            });
+        }).catch((error) => {
+            return res.status(500).json({
+                data: error
+            });
+        });
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+module.exports.deleteTeacherDiscipline = async function (req, res) {
+    const id = req.body.id;
+    try {
+        await User.findOneAndUpdate({_id: id}, {
+            "$pull": {"teachersDisciplines": req.params.id}
         }, {new: true, safe: true, upsert: true}).then((result) => {
             return res.status(201).json({
                 data: result
