@@ -54,6 +54,17 @@ module.exports.getByDisciplineId = async function (req, res) {
     }
 }
 
+module.exports.getByTaskId = async function (req, res) {
+    try {
+        const taskAnswer = await TaskAnswers.find({
+            task: req.params.taskId,
+        })
+        res.status(200).json(taskAnswer)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
 exports.findById = async (req, res) => {
     const id = req.params.id;
     await TaskAnswers.findById(id)
