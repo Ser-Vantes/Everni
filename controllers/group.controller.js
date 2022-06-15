@@ -32,7 +32,9 @@ module.exports.create = async function (req, res) {
 module.exports.findAll = (req, res) => {
     const groupName = req.query.groupName;
     const condition = groupName ? {groupName: {$regex: new RegExp(groupName), $options: "i"}} : {};
-    Group.find(condition)
+    Group.find(condition).
+    populate('faculty',"facultyName -_id").
+    populate('mentor',"lastName -_id")
         .then(data => {
             res.send(data);
         })
@@ -40,7 +42,6 @@ module.exports.findAll = (req, res) => {
             errorHandler(res, e)
         });
 };
-
 
 exports.findByGroupId = async (req, res) => {
     const id = req.params.id;
@@ -109,15 +110,4 @@ module.exports.remove = async function (req, res) {
             errorHandler(res, e)
         });
 }
-//
-// module.exports.remove = async function(req, res) {
-//     try {
-//         await Group.remove({_id: req.params.id})
-//         res.status(200).json({
-//             message: 'Группа была удалена.'
-//         })
-//     } catch (e) {
-//         errorHandler(res, e)
-//     }
-// }
 
