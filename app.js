@@ -78,6 +78,7 @@ require('./routes/department.routes')(app);
 require('./routes/discipline.routes')(app);
 require('./routes/chapter.routes')(app);
 require('./routes/lecture.routes')(app);
+require('./routes/task.routes')(app);
 
 
 app.listen(port, () => console.log(`Server has been started on ${port}`))
