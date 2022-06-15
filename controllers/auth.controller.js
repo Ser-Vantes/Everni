@@ -73,7 +73,12 @@ exports.signup = async (req, res) => {
 exports.signin = (req, res) => {
     User.findOne({
         email: req.body.email
-    })
+    }).
+         populate('teachersDisciplines',"disciplineName _id -__v").
+         populate('studentDisciplines',"disciplineName _id -__v").
+         populate('group',"groupName _id -__v").
+         populate('department',"departmentName _id -__v").
+         populate('faculty',"facultyName _id -__v")
         .populate("roles", "-__v")
         .exec(async (err, user) => {
             if (err) {
@@ -113,10 +118,15 @@ exports.signin = (req, res) => {
                 middleName: user.middleName,
                 slug: user.slug,
                 email: user.email,
-                groupId: user.groupId,
+                group: user.group,
+                department: user.department,
+                faculty: user.faculty,
+                avatar: user.avatar,
                 isAdmin: checkAdmin,
                 roles: authorities.join(),
-                userActive: user.userActive
+                userActive: user.userActive,
+                budget: user.budget,
+                educationForm: user.educationForm,
             },
                 accessToken: token,
                 refreshToken: refreshToken,

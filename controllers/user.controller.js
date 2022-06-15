@@ -188,7 +188,13 @@ module.exports.findByName = (req, res) => {
 
 exports.findById = async (req, res) => {
     const id = req.params.id;
-    await User.findById(id)
+    await User.findById(id).
+    populate('teachersDisciplines',"disciplineName _id -__v").
+    populate('studentDisciplines',"disciplineName _id -__v").
+    populate('group',"groupName _id -__v").
+    populate('department',"departmentName _id -__v").
+    populate('faculty',"facultyName _id -__v").
+    populate("roles", "-__v")
         .then(data => {
             if (!data)
                 res.status(404).send({message: "Not found User with id " + id});

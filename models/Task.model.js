@@ -10,6 +10,10 @@ const taskSchema = new Schema({
         type: String,
         required: true
     },
+    deadline: {
+        type: String,
+        required: true
+    },
     taskFiles:[
         {
             type: String,

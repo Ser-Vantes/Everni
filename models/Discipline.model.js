@@ -52,7 +52,10 @@ const disciplineSchema = new Schema({
         required: true,
         enum: ["exam", "offset"]
     },
-
+    mainTeacher:{
+        ref: 'users',
+        type: Schema.Types.ObjectId
+    }
 })
 
 module.exports = mongoose.model('disciplines', disciplineSchema)
