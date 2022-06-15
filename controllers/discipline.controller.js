@@ -101,28 +101,28 @@ module.exports.remove = async function (req, res) {
     }
 }
 
-// module.exports.addStudent = async function (req, res) {
-//     const studentArray = req.body.array
-//     try {
-//         await Discipline.findOneAndUpdate({_id: req.params.id}, {
-//             "$addToSet": {"students":{ $each: studentArray } }
-//         }, {new: true, safe: true, upsert: true}).then((result) => {
-//             return res.status(201).json({
-//                 status: "Success",
-//                 message: "Student add",
-//                 data: result
-//             });
-//         }).catch((error) => {
-//             return res.status(500).json({
-//                 status: "Failed",
-//                 message: "Database Error",
-//                 data: error
-//             });
-//         });
-//     } catch (e) {
-//         errorHandler(res, e)
-//     }
-// }
+module.exports.addStudents = async function (req, res) {
+    const studentArray = req.body.array
+    try {
+        await Discipline.findOneAndUpdate({_id: req.params.id}, {
+            "$addToSet": {"students":{ $each: studentArray } }
+        }, {new: true, safe: true, upsert: true}).then((result) => {
+            return res.status(201).json({
+                status: "Success",
+                message: "Student add",
+                data: result
+            });
+        }).catch((error) => {
+            return res.status(500).json({
+                status: "Failed",
+                message: "Database Error",
+                data: error
+            });
+        });
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
 
 
 module.exports.addStudent = async function (req, res) {

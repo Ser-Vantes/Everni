@@ -15,7 +15,7 @@ module.exports = function (app) {
     app.patch('/api/disciplines/students/:id', [authJwt.verifyToken,authJwt.isAdmin], controller.addStudent)
     app.patch('/api/disciplines/studentsS/:id', [authJwt.verifyToken,authJwt.isAdmin], controller.addStudents)
     app.get("/api/disciplines/:id", [authJwt.verifyToken], controller.findById);
-    app.patch("/api/disciplines/:id", [authJwt.verifyToken,authJwt.isAdmin], controller.update);
+    app.patch("/api/disciplines/:id", [authJwt.verifyToken, authJwt.isTeacher], controller.update);
     app.delete("/api/disciplines/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.remove);
 };
 
