@@ -2,6 +2,7 @@ const Chapter = require('../models/Chapter.model')
 const Lecture = require('../models/Lecture.model')
 const Task = require('../models/Task.model')
 const errorHandler = require('../utils/errorHandler')
+const Discipline = require("../models/Discipline.model");
 
 module.exports.create = async function (req, res) {
     const chapters = await Chapter.findOne({title: req.body.title})
@@ -72,11 +73,50 @@ module.exports.addChapterLecture = async function (req, res) {
     }
 }
 
+module.exports.deleteChapterLecture = async function (req, res) {
+    const id = req.params.id;
+    try {
+        await Chapter.findOneAndUpdate({_id: id}, {
+            "$pull": {"chapters": req.body._id}
+        }, {new: true, safe: true, upsert: true}).then((result) => {
+            return res.status(201).json({
+                data: result
+            });
+        }).catch((error) => {
+            return res.status(500).json({
+                data: error
+            });
+        });
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+
 module.exports.addChapterTask = async function (req, res) {
     const id = req.params.id;
     try {
         await Chapter.findOneAndUpdate({_id: id}, {
             "$addToSet": {"tasks": req.body._id}
+        }, {new: true, safe: true, upsert: true}).then((result) => {
+            return res.status(201).json({
+                data: result
+            });
+        }).catch((error) => {
+            return res.status(500).json({
+                data: error
+            });
+        });
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+module.exports.deleteChapterTask = async function (req, res) {
+    const id = req.params.id;
+    try {
+        await Chapter.findOneAndUpdate({_id: id}, {
+            "$pull": {"chapters": req.body._id}
         }, {new: true, safe: true, upsert: true}).then((result) => {
             return res.status(201).json({
                 data: result
