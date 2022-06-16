@@ -68,17 +68,10 @@ exports.signup = async (req, res) => {
 
 };
 
-
-
 exports.signin = (req, res) => {
     User.findOne({
         email: req.body.email
-    }).
-         populate('teachersDisciplines',"disciplineName _id -__v").
-         populate('studentDisciplines',"disciplineName _id -__v").
-         populate('group',"groupName _id -__v").
-         populate('department',"departmentName _id -__v").
-         populate('faculty',"facultyName _id -__v")
+    })
         .populate("roles", "-__v")
         .exec(async (err, user) => {
             if (err) {
@@ -111,21 +104,18 @@ exports.signin = (req, res) => {
                 }
             }
             res.status(200).send({
-            user:{
-                id: user._id,
-                firstName: user.firstName,
-                lastName: user.lastName,
-                middleName: user.middleName,
-                slug: user.slug,
-                email: user.email,
-                groupId: user.groupId,
-                avatar: user.avatar,
-                isAdmin: checkAdmin,
-                roles: authorities.join(),
-                userActive: user.userActive,
-                budget: user.budget,
-                educationForm: user.educationForm,
-            },
+                user:{
+                    id: user._id,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    middleName: user.middleName,
+                    slug: user.slug,
+                    email: user.email,
+                    groupId: user.groupId,
+                    isAdmin: checkAdmin,
+                    roles: authorities.join(),
+                    userActive: user.userActive
+                },
                 accessToken: token,
                 refreshToken: refreshToken,
             });

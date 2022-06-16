@@ -54,6 +54,17 @@ module.exports.getByDisciplineId = async function (req, res) {
     }
 }
 
+module.exports.getByUserId = async function (req, res) {
+    try {
+        const taskAnswer = await TaskAnswers.find({
+            user: req.params.userId,
+        })
+        res.status(200).json(taskAnswer)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
 module.exports.getByTaskId = async function (req, res) {
     try {
         const taskAnswer = await TaskAnswers.find({

@@ -60,11 +60,7 @@ module.exports.findByQuery = (req, res) => {
 
 exports.findById = async (req, res) => {
     const id = req.params.id;
-    await Discipline.findById(id).
-    populate('department',"departmentName _id -__v").
-    populate('students',"firstName lastName middleName _id -__v").
-    populate('teachers',"firstName lastName middleName _id -__v").
-    populate('mainTeacher',"firstName lastName middleName _id -__v")
+    await Discipline.findById(id).populate('department', "departmentName _id -__v").populate('students', "firstName lastName middleName _id -__v").populate('teachers', "firstName lastName middleName _id -__v").populate('mainTeacher', "firstName lastName middleName _id -__v")
         .then(data => {
             if (!data)
                 res.status(404).send({message: "Not found Discipline with id " + id});
@@ -74,6 +70,7 @@ exports.findById = async (req, res) => {
             errorHandler(res, e)
         });
 };
+
 
 module.exports.update = async function (req, res) {
     if (!req.body) {
@@ -134,7 +131,24 @@ module.exports.addStudents = async function (req, res) {
     }
 }
 
-
+module.exports.deleteStudent = async function (req, res) {
+    const id = req.body.id;
+    try {
+        await Discipline.findOneAndUpdate({_id: req.params.id}, {
+            "$pull": {"students": id}
+        }, {new: true, safe: true, upsert: true}).then((result) => {
+            return res.status(201).json({
+                data: result
+            });
+        }).catch((error) => {
+            return res.status(500).json({
+                data: error
+            });
+        });
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
 
 module.exports.addStudent = async function (req, res) {
     const id = req.body.id
@@ -159,17 +173,43 @@ module.exports.addStudent = async function (req, res) {
     }
 }
 
-// module.exports.addStudents = async function (req, res) {
-//     const student = req.body.array;
-//     try {
-//         const discipline = await Discipline.findOne({_id: req.params.id})
-//         discipline.students.addToSet(student);
-//         await discipline.save();
-//         res.status(200).json(discipline)
-//     } catch (e) {
-//         errorHandler(res, e)
-//     }
-// }
+module.exports.addDisciplineChapter = async function (req, res) {
+    const id = req.params.id;
+    try {
+        await Discipline.findOneAndUpdate({_id: id}, {
+            "$addToSet": {"chapters": req.body._id}
+        }, {new: true, safe: true, upsert: true}).then((result) => {
+            return res.status(201).json({
+                data: result
+            });
+        }).catch((error) => {
+            return res.status(500).json({
+                data: error
+            });
+        });
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+module.exports.deleteDisciplineChapter = async function (req, res) {
+    const id = req.params.id;
+    try {
+        await Discipline.findOneAndUpdate({_id: id}, {
+            "$pull": {"chapters": req.body._id}
+        }, {new: true, safe: true, upsert: true}).then((result) => {
+            return res.status(201).json({
+                data: result
+            });
+        }).catch((error) => {
+            return res.status(500).json({
+                data: error
+            });
+        });
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
 
 
 exports.deleteAll = (req, res) => {

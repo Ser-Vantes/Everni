@@ -55,7 +55,13 @@ const disciplineSchema = new Schema({
     mainTeacher:{
         ref: 'users',
         type: Schema.Types.ObjectId
-    }
+    },
+    chapters: [
+        {
+            ref: 'chapters',
+            type: Schema.Types.ObjectId
+        }
+    ],
 })
 
 module.exports = mongoose.model('disciplines', disciplineSchema)

@@ -51,6 +51,45 @@ exports.findByChapterId = async (req, res) => {
         });
 };
 
+module.exports.addChapterLecture = async function (req, res) {
+    const id = req.params.id;
+    try {
+        await Chapter.findOneAndUpdate({_id: id}, {
+            "$addToSet": {"lectures": req.body._id}
+        }, {new: true, safe: true, upsert: true}).then((result) => {
+            return res.status(201).json({
+                data: result
+            });
+        }).catch((error) => {
+            return res.status(500).json({
+                data: error
+            });
+        });
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+module.exports.addChapterTask = async function (req, res) {
+    const id = req.params.id;
+    try {
+        await Chapter.findOneAndUpdate({_id: id}, {
+            "$addToSet": {"tasks": req.body._id}
+        }, {new: true, safe: true, upsert: true}).then((result) => {
+            return res.status(201).json({
+                data: result
+            });
+        }).catch((error) => {
+            return res.status(500).json({
+                data: error
+            });
+        });
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+
 module.exports.update = async function (req, res) {
     if (!req.body) {
         return res.status(400).send({

@@ -19,3 +19,4 @@ module.exports = function (app) {
     app.delete("/api/disciplines/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.remove);
 };
 
+

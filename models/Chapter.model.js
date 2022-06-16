@@ -12,7 +12,19 @@ const chapterSchema = new Schema({
     discipline: {
         ref: 'disciplines',
         type: Schema.Types.ObjectId
-    }
+    },
+    lectures: [
+        {
+            ref: 'lectures',
+            type: Schema.Types.ObjectId
+        }
+    ],
+    tasks: [
+        {
+            ref: 'tasks',
+            type: Schema.Types.ObjectId
+        }
+    ],
 })
 
 module.exports = mongoose.model('chapters', chapterSchema)
