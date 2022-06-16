@@ -60,7 +60,11 @@ module.exports.findByQuery = (req, res) => {
 
 exports.findById = async (req, res) => {
     const id = req.params.id;
-    await Discipline.findById(id).populate('department', "departmentName _id -__v").populate('students', "firstName lastName middleName _id -__v").populate('teachers', "firstName lastName middleName _id -__v").populate('mainTeacher', "firstName lastName middleName _id -__v")
+    await Discipline.findById(id).populate('department', "departmentName _id -__v")
+        .populate('students', "firstName lastName middleName _id -__v")
+        .populate('teachers', "firstName lastName middleName _id -__v")
+        .populate('mainTeacher', "firstName lastName middleName _id -__v")
+        .populate('chapters', '_id')
         .then(data => {
             if (!data)
                 res.status(404).send({message: "Not found Discipline with id " + id});

@@ -189,11 +189,11 @@ module.exports.findByName = (req, res) => {
 exports.findById = async (req, res) => {
     const id = req.params.id;
     await User.findById(id).
-    populate('teachersDisciplines',"disciplineName _id -__v").
-    populate('studentDisciplines',"disciplineName _id -__v").
-    populate('group',"groupName _id -__v").
-    populate('department',"departmentName _id -__v").
-    populate('faculty',"facultyName _id -__v").
+    populate('teachersDisciplines',"disciplineName _id").
+    populate('studentDisciplines',"disciplineName _id").
+    populate('group',"groupName _id").
+    populate('department',"departmentName _id").
+    populate('faculty',"facultyName _id").
     populate("roles", "-__v")
         .then(data => {
             if (!data)

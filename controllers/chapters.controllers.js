@@ -32,6 +32,8 @@ module.exports.getByDisciplineId = async function (req, res) {
         const chapter = await Chapter.find({
             discipline: req.params.disciplineId,
         })
+            .populate('lectures')
+            .populate('tasks')
         res.status(200).json(chapter)
     } catch (e) {
         errorHandler(res, e)
