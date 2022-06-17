@@ -12,10 +12,6 @@ const taskAnswersSchema = new Schema({
         ref: 'disciplines',
         type: Schema.Types.ObjectId
     },
-    chapters: {
-        ref: 'chapters',
-        type: Schema.Types.ObjectId
-    },
     task: {
         ref: 'tasks',
         type: Schema.Types.ObjectId

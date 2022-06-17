@@ -11,8 +11,8 @@ const taskSchema = new Schema({
         required: true
     },
     deadline: {
-        type: String,
-        required: true
+        type: Date,
+        default: Date.now
     },
     taskFiles:[
         {

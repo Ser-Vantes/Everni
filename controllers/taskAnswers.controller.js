@@ -9,7 +9,6 @@ module.exports.create = async function (req, res) {
             const taskAnswer = await new TaskAnswers({
                 answerFiles: req.body.answerFiles,
                 disciplines: req.body.disciplines,
-                chapters: req.body.chapters,
                 task: req.body.task,
                 user: req.body.user,
             }).save()
