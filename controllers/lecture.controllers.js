@@ -1,5 +1,6 @@
 const Lecture = require('../models/Lecture.model')
 const errorHandler = require('../utils/errorHandler')
+const Chapter = require("../models/Chapter.model");
 
 module.exports.create = async function (req, res) {
     const lectures = await Lecture.findOne({title: req.body.title})
@@ -20,7 +21,19 @@ module.exports.create = async function (req, res) {
                 usefulLinks: req.body.usefulLinks,
                 discipline: req.body.discipline,
                 chapter: req.body.chapter,
-            }).save()
+            }).save().then(lecture =>{
+                Chapter.findOneAndUpdate({_id: lecture.chapter}, {
+                    "$addToSet": {"lectures": lecture._id}
+                }, {new: true, safe: true, upsert: true}).then((result) => {
+                    return res.status(201).json({
+                        data: lecture
+                    });
+                }).catch((error) => {
+                    return res.status(500).json({
+                        data: error
+                    });
+                });
+            })
             res.status(201).json(lecture)
         } catch (e) {
             errorHandler(res, e)

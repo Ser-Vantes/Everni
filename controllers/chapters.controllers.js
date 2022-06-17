@@ -77,7 +77,7 @@ module.exports.deleteChapterLecture = async function (req, res) {
     const _id = req.body._id;
     try {
         await Chapter.findOneAndUpdate({_id: req.params.id}, {
-            "$pull": {"chapters": _id}
+            "$pull": {"lectures": _id}
         }, {new: true, safe: true, upsert: true}).then((result) => {
             return res.status(201).json({
                 data: result
@@ -116,7 +116,7 @@ module.exports.deleteChapterTask = async function (req, res) {
     const _id = req.body._id;
     try {
         await Chapter.findOneAndUpdate({_id: req.params.id}, {
-            "$pull": {"chapters": _id}
+            "$pull": {"tasks": _id}
         }, {new: true, safe: true, upsert: true}).then((result) => {
             return res.status(201).json({
                 data: result

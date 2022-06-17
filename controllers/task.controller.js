@@ -1,4 +1,5 @@
 const Task = require('../models/Task.model')
+const Chapter = require('../models/Chapter.model')
 const errorHandler = require('../utils/errorHandler')
 
 module.exports.create = async function (req, res) {
@@ -20,8 +21,19 @@ module.exports.create = async function (req, res) {
                 deadline: req.body.deadline,
                 disciplines: req.body.discipline,
                 chapters: req.body.chapter,
-            }).save()
-            res.status(201).json(task)
+            }).save().then(task =>{
+                Chapter.findOneAndUpdate({_id: task.chapters}, {
+                    "$addToSet": {"tasks": task._id}
+                }, {new: true, safe: true, upsert: true}).then((result) => {
+                    return res.status(201).json({
+                        data: task
+                    });
+                }).catch((error) => {
+                    return res.status(500).json({
+                        data: error
+                    });
+                });
+            })
         } catch (e) {
             errorHandler(res, e)
         }

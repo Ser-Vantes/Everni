@@ -63,7 +63,7 @@ module.exports.update = async function (req, res) {
             {$set: req.body},
             {new: true}
         )
-        res.status(200).json(lecture)
+        res.status(200).json(awards)
     } catch (e) {
         errorHandler(res, e)
     }
