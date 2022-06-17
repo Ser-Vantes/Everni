@@ -21,19 +21,13 @@ const lectureSchema = new Schema({
                 type: String
             },
             url: {
-                type: Number
+                type: String
             },
             _id: {
                 type: Number
             }
         }
     ],
-    // files: [
-    //     {
-    //         type: String,
-    //         default: ''
-    //     }
-    // ],
     discipline: {
         ref: 'disciplines',
         type: Schema.Types.ObjectId
