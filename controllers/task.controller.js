@@ -17,8 +17,9 @@ module.exports.create = async function (req, res) {
                 title: req.body.title,
                 taskText: req.body.taskText,
                 taskFiles: req.body.taskFiles,
-                discipline: req.body.discipline,
-                chapter: req.body.chapter,
+                deadline: req.body.deadline,
+                disciplines: req.body.discipline,
+                chapters: req.body.chapter,
             }).save()
             res.status(201).json(task)
         } catch (e) {

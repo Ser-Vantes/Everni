@@ -178,10 +178,10 @@ module.exports.addStudent = async function (req, res) {
 }
 
 module.exports.addDisciplineChapter = async function (req, res) {
-    const id = req.params.id;
+    const _id = req.body._id;
     try {
-        await Discipline.findOneAndUpdate({_id: id}, {
-            "$addToSet": {"chapters": req.body._id}
+        await Discipline.findOneAndUpdate({_id: req.params.id}, {
+            "$addToSet": {"chapters": _id}
         }, {new: true, safe: true, upsert: true}).then((result) => {
             return res.status(201).json({
                 data: result
@@ -197,10 +197,10 @@ module.exports.addDisciplineChapter = async function (req, res) {
 }
 
 module.exports.deleteDisciplineChapter = async function (req, res) {
-    const id = req.params.id;
+    const _id = req.body._id;
     try {
-        await Discipline.findOneAndUpdate({_id: id}, {
-            "$pull": {"chapters": req.body._id}
+        await Discipline.findOneAndUpdate({_id: req.params.id}, {
+            "$pull": {"chapters": _id}
         }, {new: true, safe: true, upsert: true}).then((result) => {
             return res.status(201).json({
                 data: result

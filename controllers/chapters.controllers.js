@@ -55,10 +55,10 @@ exports.findByChapterId = async (req, res) => {
 };
 
 module.exports.addChapterLecture = async function (req, res) {
-    const id = req.params.id;
+    const _id = req.body._id;
     try {
-        await Chapter.findOneAndUpdate({_id: id}, {
-            "$addToSet": {"lectures": req.body._id}
+        await Chapter.findOneAndUpdate({_id: req.params.id}, {
+            "$addToSet": {"lectures": _id}
         }, {new: true, safe: true, upsert: true}).then((result) => {
             return res.status(201).json({
                 data: result
@@ -74,10 +74,10 @@ module.exports.addChapterLecture = async function (req, res) {
 }
 
 module.exports.deleteChapterLecture = async function (req, res) {
-    const id = req.params.id;
+    const _id = req.body._id;
     try {
-        await Chapter.findOneAndUpdate({_id: id}, {
-            "$pull": {"chapters": req.body._id}
+        await Chapter.findOneAndUpdate({_id: req.params.id}, {
+            "$pull": {"chapters": _id}
         }, {new: true, safe: true, upsert: true}).then((result) => {
             return res.status(201).json({
                 data: result
@@ -94,10 +94,10 @@ module.exports.deleteChapterLecture = async function (req, res) {
 
 
 module.exports.addChapterTask = async function (req, res) {
-    const id = req.params.id;
+    const _id = req.body._id;
     try {
-        await Chapter.findOneAndUpdate({_id: id}, {
-            "$addToSet": {"tasks": req.body._id}
+        await Chapter.findOneAndUpdate({_id: req.params.id}, {
+            "$addToSet": {"tasks": _id}
         }, {new: true, safe: true, upsert: true}).then((result) => {
             return res.status(201).json({
                 data: result
@@ -113,10 +113,10 @@ module.exports.addChapterTask = async function (req, res) {
 }
 
 module.exports.deleteChapterTask = async function (req, res) {
-    const id = req.params.id;
+    const _id = req.body._id;
     try {
-        await Chapter.findOneAndUpdate({_id: id}, {
-            "$pull": {"chapters": req.body._id}
+        await Chapter.findOneAndUpdate({_id: req.params.id}, {
+            "$pull": {"chapters": _id}
         }, {new: true, safe: true, upsert: true}).then((result) => {
             return res.status(201).json({
                 data: result
