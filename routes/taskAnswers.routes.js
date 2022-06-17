@@ -13,6 +13,7 @@ module.exports = function (app) {
     app.get("/api/taskAnswers/:id", [authJwt.verifyToken], controller.findById);
     app.get("/api/taskAnswers/task/:taskId", [authJwt.verifyToken], controller.getByTaskId);
     app.get("/api/taskAnswers/discipline/:disciplineId", [authJwt.verifyToken], controller.getByDisciplineId);
+    app.get("/api/taskAnswers/user/:disciplineId", [authJwt.verifyToken], controller.getByUserAndDisciplineId());
     app.get("/api/taskAnswers/user/:userId", [authJwt.verifyToken], controller.getByUserId);
     app.patch("/api/taskAnswers/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.update);
     app.delete("/api/taskAnswers/:id", [authJwt.verifyToken, authJwt.isAdmin], controller.remove);
