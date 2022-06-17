@@ -1,33 +1,40 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 const taskSchema = new Schema({
-    title: {
+  title: {
+    type: String,
+    required: true,
+  },
+  taskText: {
+    type: String,
+    required: true,
+  },
+  deadline: {
+    type: Date,
+    default: Date.now,
+  },
+  taskFiles: [
+    {
+      title: {
         type: String,
-        required: true
-    },
-    taskText: {
+      },
+      url: {
         type: String,
-        required: true
+      },
+      _id: {
+        type: Number,
+      },
     },
-    deadline: {
-        type: Date,
-        default: Date.now
-    },
-    taskFiles:[
-        {
-            type: String,
-            default: ''
-        }
-    ],
-    disciplines: {
-        ref: 'disciplines',
-        type: Schema.Types.ObjectId
-    },
-    chapters: {
-        ref: 'chapters',
-        type: Schema.Types.ObjectId
-    },
-})
+  ],
+  disciplines: {
+    ref: "disciplines",
+    type: Schema.Types.ObjectId,
+  },
+  chapters: {
+    ref: "chapters",
+    type: Schema.Types.ObjectId,
+  },
+});
 
-module.exports = mongoose.model('tasks', taskSchema)
+module.exports = mongoose.model("tasks", taskSchema);
