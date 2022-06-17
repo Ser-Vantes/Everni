@@ -24,3 +24,66 @@ module.exports.create = async function (req, res) {
         }
     }
 }
+
+module.exports.findAll = async (req, res) => {
+    try {
+        const awards = await Awards.find({})
+            .then(data => {
+                res.send(data)
+            })
+        res.status(200)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+};
+exports.findById = async (req, res) => {
+    const id = req.params.id;
+    await Awards.findById(id)
+        .then(data => {
+            if (!data)
+                res.status(404).send({message: "Not found Awards with id " + id});
+            else res.send(data);
+        })
+        .catch(e => {
+            errorHandler(res, e)
+        });
+};
+
+module.exports.update = async function (req, res) {
+    if (!req.body) {
+        return res.status(400).send({
+            message: "Data to update can not be empty!"
+        });
+    }
+
+    try {
+        const awards = await Awards.findOneAndUpdate(
+            {_id: req.params.id},
+            {$set: req.body},
+            {new: true}
+        )
+        res.status(200).json(lecture)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+
+module.exports.remove = async function (req, res) {
+    const _id = req.params.id;
+    await Awards.remove({_id})
+        .then(data => {
+            if (!data) {
+                res.status(404).send({
+                    message: `Cannot delete award with id=${_id}. Maybe award was not found!`
+                });
+            } else {
+                res.send({
+                    message: "Lecture was deleted successfully!"
+                });
+            }
+        })
+        .catch(e => {
+            errorHandler(res, e)
+        });
+}
