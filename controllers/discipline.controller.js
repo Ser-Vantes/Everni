@@ -39,6 +39,11 @@ module.exports.create = async function (req, res) {
 module.exports.getAll = async function (req, res) {
     try {
         const disciplines = await Discipline.find({})
+            .populate('department', "departmentName _id")
+            .populate('students', "firstName lastName middleName _id")
+            .populate('teachers', "firstName lastName middleName _id")
+            .populate('mainTeacher', "firstName lastName middleName _id")
+            .populate('chapters', '_id')
         res.status(200).json(disciplines)
     } catch (e) {
         errorHandler(res, e)
@@ -48,7 +53,12 @@ module.exports.getAll = async function (req, res) {
 module.exports.findByQuery = (req, res) => {
     const disciplineName = req.query.disciplineName;
     const condition = disciplineName ? {disciplineName: {$regex: new RegExp(disciplineName), $options: "i"}} : {};
-    Group.find(condition)
+    Discipline.find(condition)
+        .populate('department', "departmentName _id")
+        .populate('students', "firstName lastName middleName _id")
+        .populate('teachers', "firstName lastName middleName _id")
+        .populate('mainTeacher', "firstName lastName middleName _id")
+        .populate('chapters', '_id')
         .then(data => {
             res.send(data);
         })

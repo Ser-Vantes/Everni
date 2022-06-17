@@ -77,8 +77,7 @@ module.exports.update = async function (req, res) {
 
 
 module.exports.remove = async function (req, res) {
-    const id = req.params.id;
-    await Faculty.remove({id})
+    await Faculty.remove({_id: req.params.id})
         .then(data => {
             if (!data) {
                 res.status(404).send({
