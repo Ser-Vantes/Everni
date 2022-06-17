@@ -86,6 +86,7 @@ module.exports.update = async function (req, res) {
         title: req.body.title,
         taskText: req.body.taskText,
         taskFiles: req.body.taskFiles,
+        deadline: req.body.deadline,
     }
 
     try {

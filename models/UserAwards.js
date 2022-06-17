@@ -1,9 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
-const slug = require('mongoose-slug-generator');
-mongoose.plugin(slug);
 
-const awardSchema = new Schema({
+const userAwardSchema = new Schema({
     student: {
         ref: 'users',
         type: Schema.Types.ObjectId,
@@ -18,4 +16,4 @@ const awardSchema = new Schema({
     },
 })
 
-module.exports = mongoose.model('users', awardSchema)
+module.exports = mongoose.model('userAward', userAwardSchema)

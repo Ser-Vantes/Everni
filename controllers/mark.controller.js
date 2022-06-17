@@ -43,7 +43,7 @@ module.exports.update = async function (req, res) {
 module.exports.getByDisciplineId = async function (req, res) {
     try {
         const taskAnswer = await Mark.find({
-            disciplines: req.body.disciplineId,
+            disciplines: req.params.disciplineId,
         })
         res.status(200).json(taskAnswer)
     } catch (e) {
@@ -54,7 +54,7 @@ module.exports.getByDisciplineId = async function (req, res) {
 module.exports.getByUserId = async function (req, res) {
     try {
         const taskAnswer = await Mark.find({
-            task: req.body.userId,
+            task: req.params.userId,
         })
         res.status(200).json(taskAnswer)
     } catch (e) {

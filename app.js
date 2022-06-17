@@ -81,6 +81,8 @@ require('./routes/lecture.routes')(app);
 require('./routes/task.routes')(app);
 require('./routes/taskAnswers.routes')(app);
 require('./routes/mark.routes')(app);
+require('./routes/award.routes')(app);
+require('./routes/userAward.routes')(app);
 
 
 app.listen(port, () => console.log(`Server has been started on ${port}`))

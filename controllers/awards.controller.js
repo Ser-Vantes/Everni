@@ -80,7 +80,7 @@ module.exports.remove = async function (req, res) {
                 });
             } else {
                 res.send({
-                    message: "Lecture was deleted successfully!"
+                    message: "Award was deleted successfully!"
                 });
             }
         })
