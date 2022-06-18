@@ -25,6 +25,11 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.getByDisciplineId
   );
+  app.get(
+    "/api/mark/taskAnswer/:tasksAnswersId",
+    [authJwt.verifyToken],
+    controller.getByTaskAnswerId
+  );
   app.patch(
     "/api/mark/:id",
     [authJwt.verifyToken, authJwt.isTeacher],

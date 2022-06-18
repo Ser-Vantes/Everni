@@ -42,8 +42,19 @@ module.exports.update = async function (req, res) {
 
 module.exports.getByDisciplineId = async function (req, res) {
     try {
-        const taskAnswer = await Mark.find({
+        const mark = await Mark.find({
             disciplines: req.params.disciplineId,
+        })
+        res.status(200).json(mark)
+    } catch (e) {
+        errorHandler(res, e)
+    }
+}
+
+module.exports.getByTaskAnswerId = async function (req, res) {
+    try {
+        const taskAnswer = await Mark.find({
+            tasksAnswers: req.params.tasksAnswersId,
         })
         res.status(200).json(taskAnswer)
     } catch (e) {
@@ -54,7 +65,7 @@ module.exports.getByDisciplineId = async function (req, res) {
 module.exports.getByUserId = async function (req, res) {
     try {
         const taskAnswer = await Mark.find({
-            task: req.params.userId,
+            user: req.params.userId,
         })
         res.status(200).json(taskAnswer)
     } catch (e) {

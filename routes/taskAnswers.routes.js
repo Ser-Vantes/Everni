@@ -21,11 +21,11 @@ module.exports = function (app) {
     [authJwt.verifyToken],
     controller.getByDisciplineId
   );
-  app.get(
-    "/api/taskAnswers/user/:disciplineId",
-    [authJwt.verifyToken],
-    controller.getByUserAndDisciplineId
-  );
+  // app.get(
+  //   "/api/taskAnswers/user/:disciplineId",
+  //   [authJwt.verifyToken],
+  //   controller.getByUserAndDisciplineId
+  // );
   app.get(
     "/api/taskAnswers/user/:userId",
     [authJwt.verifyToken],
