@@ -5,6 +5,7 @@ const Faculty = require("../models/Faculty.model");
 const Chapter = require("../models/Chapter.model");
 const User = require("../models/User.model");
 
+
 // noinspection DuplicatedCode
 module.exports.create = async function (req, res) {
     const disciplines = await Discipline.findOne({disciplineName: req.body.disciplineName})

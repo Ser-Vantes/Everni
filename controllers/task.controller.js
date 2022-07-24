@@ -56,6 +56,8 @@ module.exports.getByDisciplineId = async function (req, res) {
         const task = await Task.find({
             discipline: req.params.disciplineId,
         })
+            .populate('department', "departmentName _id")
+
         res.status(200).json(task)
     } catch (e) {
         errorHandler(res, e)

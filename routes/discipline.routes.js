@@ -1,5 +1,6 @@
 const {authJwt} = require("../middleware");
 const controller = require("../controllers/discipline.controller");
+const upload = require('../middleware/upload')
 module.exports = function (app) {
     app.use(function (req, res, next) {
         res.header(
@@ -9,7 +10,7 @@ module.exports = function (app) {
         next();
     });
 
-    app.post("/api/disciplines/", [authJwt.verifyToken, authJwt.isAdmin], controller.create);
+    app.post("/api/disciplines/", [authJwt.verifyToken, authJwt.isAdmin], upload.single('image'), controller.create);
     app.get("/api/disciplines/", [authJwt.verifyToken, authJwt.isAdmin], controller.getAll);
     app.get("/api/disciplines/title/", [authJwt.verifyToken], controller.findByQuery);
     app.patch('/api/disciplines/students/:id', [authJwt.verifyToken,authJwt.isAdmin], controller.addStudent)
